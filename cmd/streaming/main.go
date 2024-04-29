@@ -27,39 +27,27 @@ func main() {
 		log.Fatalf("Failed to connect to blockchain: %v", err)
 	}
 
-	log.Printf("Connected to blockchain")
-
 	chainId, err := client.NetworkID(context.Background())
 	if err != nil {
 		log.Fatalf("Failed to get chain ID: %v", err)
 	}
-
-	log.Printf("Chain ID: %v", chainId)
 
 	privateKey, err := crypto.HexToECDSA(os.Getenv("EVM_PRIVATE_KEY"))
 	if err != nil {
 		log.Fatalf("Failed to parse private key: %v", err)
 	}
 
-	log.Printf("Private key parsed")
-
 	opts, err := bind.NewKeyedTransactorWithChainID(privateKey, chainId)
 	if err != nil {
 		log.Fatalf("Failed to create transactor: %v", err)
 	}
-
-	log.Printf("Transactor created")
 
 	instance, err := cartesi.NewInputBox(common.HexToAddress(os.Getenv("INPUT_BOX_CONTRACT_ADDRESS")), client)
 	if err != nil {
 		log.Fatalf("Failed to create instance: %v", err)
 	}
 
-	log.Printf("Instance created")
-
 	kafkaRepository := kafka.NewKafkaConsumer(configMap, []string{os.Getenv("CONFLUENT_KAFKA_TOPIC_NAME")})
-
-	log.Printf("Kafka consumer created")
 	
 	go func() {
 		if err := kafkaRepository.Consume(msgChan); err != nil {
