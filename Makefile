@@ -18,7 +18,7 @@ run:
 		-f ./deployments/compose.packages.yaml \
 		--env-file ./config/.env.develop \
 		up simulation streaming --build -d
-	@sunodo run
+	# @sunodo run --epoch-duration 60
 	$(END_LOG)
 
 .PHONY: build
