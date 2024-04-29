@@ -71,7 +71,7 @@ func main() {
 		if transaction, err := instance.AddInput(opts, common.HexToAddress(os.Getenv("APPLICATION_CONTRACT_ADDRESS")), msg.Value); err != nil {
 			log.Fatalf("Failed to add input: %v", err)
 		} else {
-			log.Printf("Transaction sent with hash: %v and payload: %v", transaction.Hash().Hex(), string(msg.Value))
+			log.Printf("Transaction sent with hash: %v, payload: %v and gas: %v" , transaction.Hash().Hex(), string(msg.Value), transaction.GasPrice().Uint64())
 		}
 	}
 }

@@ -11,16 +11,6 @@ infra:
 	@docker compose -f ./deployments/compose.infra.yaml up --build -d
 	$(END_LOG)
 
-.PHONY: run
-run:
-	$(START_LOG)
-	@docker compose \
-		-f ./deployments/compose.packages.yaml \
-		--env-file ./config/.env.develop \
-		up simulation streaming --build -d
-	# @sunodo run --epoch-duration 60
-	$(END_LOG)
-
 .PHONY: build
 build:
 	$(START_LOG)
@@ -28,4 +18,13 @@ build:
 		-t rollup \
 		-f ./build/Dockerfile.rollup .
 	@sunodo build --from-image rollup
+	$(END_LOG)
+
+.PHONY: run
+run:
+	$(START_LOG)
+	@docker compose \
+		-f ./deployments/compose.packages.yaml \
+		--env-file ./config/.env.develop \
+		up simulation streaming --build -d
 	$(END_LOG)
