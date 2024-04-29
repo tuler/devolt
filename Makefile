@@ -1,5 +1,5 @@
-START_LOG = @echo "======================================================= START OF LOG ========================================================="
-END_LOG = @echo "======================================================== END OF LOG =========================================================="
+START_LOG = @echo "================================================= START OF LOG ==================================================="
+END_LOG = @echo "================================================== END OF LOG ===================================================="
 
 .PHONY: env
 env: ./config/.env.develop.tmpl
@@ -27,4 +27,10 @@ run:
 		-f ./deployments/compose.packages.yaml \
 		--env-file ./config/.env.develop \
 		up simulation streaming --build -d
+	$(END_LOG)
+
+.PHONY: generate
+generate:
+	$(START_LOG)
+	@go run ./pkg/rollups-contracts/generate
 	$(END_LOG)

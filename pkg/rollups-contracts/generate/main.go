@@ -32,7 +32,7 @@ var bindings = []contractBinding{
 	{
 		jsonPath: baseContractsPath + "inputs/InputBox.sol/InputBox.json",
 		typeName: "InputBox",
-		outFile:  "input_box.go",
+		outFile:  "./pkg/rollups-contracts/input_box.go",
 	},
 }
 
