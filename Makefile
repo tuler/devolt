@@ -27,5 +27,5 @@ build:
 	@docker build \
 		-t rollup \
 		-f ./build/Dockerfile.rollup .
-	@sunodo run --from-image rollup
+	@sunodo build --from-image rollup
 	$(END_LOG)

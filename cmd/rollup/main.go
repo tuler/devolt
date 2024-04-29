@@ -19,7 +19,7 @@ func (a *MyApplication) Advance(
 }
 
 func (a *MyApplication) Inspect(env rollmelette.EnvInspector, payload []byte) error {
-	// Handle inspect input
+	slog.Info("Inspect", "payload", string(payload))
 	return nil
 }
 
