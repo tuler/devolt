@@ -4,7 +4,7 @@ import (
 	"context"
 	ckafka "github.com/confluentinc/confluent-kafka-go/v2/kafka"
 	"github.com/devolthq/devolt/internal/infra/kafka"
-	"github.com/devolthq/devolt/pkg/cartesi"
+	"github.com/devolthq/devolt/pkg/rollups-contracts"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"

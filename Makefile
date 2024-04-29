@@ -8,14 +8,24 @@ env: ./config/.env.develop.tmpl
 .PHONY: infra
 infra:
 	$(START_LOG)
-	@docker compose -f ./deployments/compose.yaml up --build -d
+	@docker compose -f ./deployments/compose.infra.yaml up --build -d
 	$(END_LOG)
 
 .PHONY: run
 run:
 	$(START_LOG)
 	@docker compose \
-		-f ./build/compose.yaml \
+		-f ./deployments/compose.packages.yaml \
 		--env-file ./config/.env.develop \
 		up simulation streaming --build -d
+	@sunodo run
+	$(END_LOG)
+
+.PHONY: build
+build:
+	$(START_LOG)
+	@docker build \
+		-t rollup \
+		-f ./build/Dockerfile.rollup .
+	@sunodo run --from-image rollup
 	$(END_LOG)

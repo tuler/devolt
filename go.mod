@@ -9,6 +9,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/machinefi/w3bstream v1.6.4
 	github.com/pkg/errors v0.9.1
+	github.com/rollmelette/rollmelette v0.1.1
 	go.mongodb.org/mongo-driver v1.14.0
 	gonum.org/v1/gonum v0.15.0
 	google.golang.org/protobuf v1.31.0
@@ -30,6 +31,8 @@ require (
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/holiman/uint256 v1.2.4 // indirect
 	github.com/klauspost/compress v1.16.0 // indirect
+	github.com/lmittmann/tint v1.0.3 // indirect
+	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mmcloughlin/addchain v0.4.0 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
