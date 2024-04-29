@@ -74,32 +74,32 @@ func main() {
 		log.Printf("Starting station: %v", station)
 		go func(station usecase.FindAllStationsOutputDTO) {
 			defer wg.Done()
+			client, err := machinefi.NewMachineFiMqttClient(station.ID, opts)
+			if err != nil {
+				log.Fatalf("Failed to create client: %v", err)
+			}
 			for {
-				client, err := machinefi.NewMachineFiMqttClient(station.ID, opts)
-				if err != nil {
-					log.Fatalf("Failed to create client: %v", err)
-				}
-
-				stationPayload, err := entity.NewPayload(
+				payload, err := entity.NewPayload(
 					station.ID,
 					station.Params,
 					station.Latitude,
 					station.Longitude,
 				)
 				if err != nil {
-					log.Fatalf("Failed to create station payload: %v", err)
+					log.Fatalf("Failed to create payload: %v", err)
 				}
 
-				payload := &eventpb.Event{
+				jsonPayload := &eventpb.Event{
 					Header: &eventpb.Header{
 						Token:   os.Getenv("W3BSTREAM_MQTT_TOKEN"),
 						PubTime: time.Now().UTC().UnixMicro(),
 						EventId: uuid.NewString(),
 						PubId:   uuid.NewString(),
 					},
-					Payload: []byte(fmt.Sprintf("%v", stationPayload)),
+					Payload: []byte(fmt.Sprintf("%v", payload)),
 				}
-				jsonBytesPayload, err := proto.Marshal(payload)
+				
+				jsonBytesPayload, err := proto.Marshal(jsonPayload)
 				if err != nil {
 					log.Println("Error converting to JSON:", err)
 				}

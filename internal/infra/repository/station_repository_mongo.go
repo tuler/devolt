@@ -21,6 +21,12 @@ func NewStationRepositoryMongo(client *mongo.Client, dbName string, stationsColl
 	}
 }
 
+func (s *StationRepositoryMongo) CreateStation(station *entity.Station) (*mongo.InsertOneResult, error) {
+	result, err := s.Collection.InsertOne(context.TODO(), station)
+	log.Printf("Inserting station %s into the MongoDB collection: %s", result, s.Collection.Name())
+	return result, err
+}
+
 func (s *StationRepositoryMongo) FindAllStations() ([]*entity.Station, error) {
 	cur, err := s.Collection.Find(context.TODO(), bson.D{})
 	log.Printf("Selecting all stations from the MongoDB collection %s", s.Collection.Name())
