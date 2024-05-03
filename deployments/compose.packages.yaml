@@ -17,7 +17,7 @@ services:
     container_name: simulation
     hostname: simulation
     env_file:
-      - ../config/.env.develop
+      - ../.env.develop
     restart: always
     build:
       context: ..
@@ -26,7 +26,7 @@ services:
     container_name: streaming
     hostname: streaming
     env_file:
-      - ../config/.env.develop
+      - ../.env.develop
     restart: always
     build:
       context: ..
