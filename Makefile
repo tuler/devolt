@@ -16,24 +16,6 @@ else
 	DEPLOY_NETWORK_ARGS := script/DeployProxy.s.sol --rpc-url $(RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(TESTNET_BLOCKSCAN_API_KEY) -v
 endif
 
-define test_contracts
-	$(START_LOG)
-	@forge test
-	$(END_LOG)
-endef
-
-define bytecode_contracts
-	$(START_LOG)
-	@cd contracts && forge script $(BYTECODE_NETWORK_ARGS)
-	$(END_LOG)
-endef
-
-define deploy_contracts
-	$(START_LOG)
-	@cd contracts && forge script $(DEPLOY_NETWORK_ARGS)
-	$(END_LOG)
-endef
-
 .PHONY: env
 env: ./.env.develop.tmpl
 	cp ./.env.develop.tmpl ./.env.develop
@@ -56,7 +38,7 @@ build:
 	@docker build \
 		-t rollup \
 		-f ./build/Dockerfile.rollup .
-	@sunodo build --from-image rollup
+	@cartesi build --from-image rollup
 	$(END_LOG)
 
 .PHONY: iot
@@ -71,7 +53,7 @@ iot:
 .PHONY: prod
 prod:
 	$(START_LOG)
-	@sunodo run --epoch-duration 60
+	@cartesi run --epoch-duration 60
 	$(END_LOG)
 	
 .PHONY: generate
@@ -82,12 +64,16 @@ generate:
 
 .PHONY: test
 test:
-	@$(test_contracts)
+	@echo "TBD"
 
 .PHONY: deploy
 deploy:
-	@$(deploy_contracts)
+	$(START_LOG)
+	@cd contracts && forge script $(DEPLOY_NETWORK_ARGS)
+	$(END_LOG)
 
 .PHONY: bytecode
 bytecode:
-	@$(bytecode_contracts)
+	$(START_LOG)
+	@cd contracts && forge script $(BYTECODE_NETWORK_ARGS)
+	$(END_LOG)
